@@ -11,11 +11,18 @@ public class Contacto {
 	private String telefono;
 	private String correo;
 	
+	public Contacto (String nombre, String telefono, String correo) {
+		setNombre(nombre);
+		setTelefono(telefono);
+		setCorreo(correo);
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
+	
 	private void setNombre(String nombre) {
-		if (nombre.equals(null) || nombre.equals("")) {
+		if (nombre==null || nombre=="") {
 			throw new IllegalArgumentException ("El nombre no puede estar vacío.");
 		} else 
 			this.nombre=nombre;
@@ -27,10 +34,10 @@ public class Contacto {
 		Pattern p=Pattern.compile(ER_TELEFONO);
 		Matcher m=p.matcher(telefono);
 		
-		if (m.matches()) {
-			this.telefono=telefono;
-		} else
+		if (!m.matches() || telefono==null || telefono=="") {
 			throw new IllegalArgumentException ("El número no es válido.");
+		} else
+			this.telefono=telefono;
 	}
 	public String getCorreo() {
 		return correo;
@@ -45,7 +52,44 @@ public class Contacto {
 			throw new IllegalArgumentException ("El correo no es válido.");
 	}
 
+	public String toString() {
+		return getIniciales()+" ["+telefono+", "+correo+"]";
+	}
 	
+	public String getIniciales() {
+		String iniciales=""+nombre.charAt(0);
+		for (int i=0; i<nombre.length(); i++) {
+			if (nombre.charAt(i)==' ') {
+				iniciales+=nombre.charAt(i+1);
+			}
+		}
+		return iniciales;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contacto other = (Contacto) obj;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		return true;
+	}
 	
 	
 	
