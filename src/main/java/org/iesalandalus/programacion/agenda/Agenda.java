@@ -66,10 +66,17 @@ public class Agenda {
 		return -1;
 	}
 	
+	public void borrar(String nombre) throws OperationNotSupportedException {
+		if (buscarIndiceCliente(nombre)==-1)
+			throw new OperationNotSupportedException ("No existe dicho usuario");
+		else 
+			desplazarUnaPosicionHaciaLaIzquierda(buscarIndiceCliente(nombre));
+	}
 	
-	
-	
-	
-	
-	
+	private void desplazarUnaPosicionHaciaLaIzquierda(int indice){
+		for (int i=indice; i<MAX_CONTACTOS; i++) {
+			contactos[i]=contactos[i+1];
+			contactos[i+1]=null;
+		}
+	}
 }
