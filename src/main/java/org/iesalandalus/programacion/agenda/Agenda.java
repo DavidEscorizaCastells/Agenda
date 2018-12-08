@@ -25,7 +25,7 @@ public class Agenda {
 		return numContactos;
 	}
 	
-	public void añadir(Contacto contacto) throws OperationNotSupportedException {
+	public void anadir(Contacto contacto) throws OperationNotSupportedException {
 		contactos[buscarPrimerIndiceComprobandoExistencia(contacto)]=contacto;
 		numContactos+=1;
 	}

@@ -44,7 +44,7 @@ public class MainApp {
 	private static void ejecutarOpcion(int opcion) {
 		switch (opcion) {
 		case 1:
-			añadirContacto();
+			anadirContacto();
 			break;
 		case 2:
 			buscarContacto();
@@ -60,7 +60,7 @@ public class MainApp {
 		}
 	}
 	
-	private static void añadirContacto() {
+	private static void anadirContacto() {
 		System.out.print("Nombre: ");
 		String nombre=Entrada.cadena();
 		System.out.print("Teléfono: ");
@@ -70,7 +70,7 @@ public class MainApp {
 		
 		try {
 			Contacto nuevoContacto=new Contacto (nombre, telefono, correo);
-			miAgenda.añadir(nuevoContacto);
+			miAgenda.anadir(nuevoContacto);
 			System.out.println(EXITO);
 		} catch  (IllegalArgumentException e) {
 			System.out.println(ERROR+e.getMessage());
