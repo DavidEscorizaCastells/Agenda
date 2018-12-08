@@ -50,4 +50,26 @@ public class Agenda {
 		}
 		return true;
 	}
+	
+	public Contacto buscar(String nombre) {
+		if (buscarIndiceCliente(nombre)!=-1) {
+			return contactos[buscarIndiceCliente(nombre)];
+		} else return null;
+	}
+	
+	private int buscarIndiceCliente(String nombre) {
+		for (int i=0; i<contactos.length;i++) {
+			if (contactos[i].getNombre().equalsIgnoreCase(nombre)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	
+	
+	
+	
+	
+	
 }
