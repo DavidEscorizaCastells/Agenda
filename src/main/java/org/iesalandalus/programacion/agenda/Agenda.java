@@ -26,22 +26,20 @@ public class Agenda {
 	}
 	
 	public void añadir(Contacto contacto) throws OperationNotSupportedException {
-		if (buscarPrimerIndiceComprobandoExistencia(contacto)==-1) {
-			if (indiceNoSuperaTamaño(numContactos)) {
-				contactos[numContactos]=contacto;
-				numContactos+=1;
-			}	else throw new OperationNotSupportedException ("La agenda está completa.");
-		} throw new OperationNotSupportedException ("El contacto "+contacto.toString()+" ya existe.");
-		
+		contactos[buscarPrimerIndiceComprobandoExistencia(contacto)]=contacto;
+		numContactos+=1;
 	}
 	
-	private int buscarPrimerIndiceComprobandoExistencia(Contacto contacto) {;
+	private int buscarPrimerIndiceComprobandoExistencia(Contacto contacto) throws OperationNotSupportedException {;
 		for (int i=0;i<contactos.length;i++) {
-			if (contactos[i].equals(contacto)) {
+			if (contactos[i]==contacto) {
+				throw new OperationNotSupportedException ("El contacto "+contactos[i].toString()+" ya existe.");
+			}
+			if (contactos[i]==null) {
 				return i;
 			}
 		}
-		return -1;
+		throw new OperationNotSupportedException ("La agenda está completa.");
 	}
 	
 	private boolean indiceNoSuperaTamaño(int indice) {
@@ -58,8 +56,8 @@ public class Agenda {
 	}
 	
 	private int buscarIndiceCliente(String nombre) {
-		for (int i=0; i<contactos.length;i++) {
-			if (contactos[i].getNombre().equalsIgnoreCase(nombre)) {
+		for (int i=0; i<numContactos;i++) {
+			if (contactos[i].getNombre().equals(nombre)) {
 				return i;
 			}
 		}
@@ -71,10 +69,11 @@ public class Agenda {
 			throw new OperationNotSupportedException ("No existe dicho usuario");
 		else 
 			desplazarUnaPosicionHaciaLaIzquierda(buscarIndiceCliente(nombre));
+			numContactos-=1;
 	}
 	
 	private void desplazarUnaPosicionHaciaLaIzquierda(int indice){
-		for (int i=indice; i<MAX_CONTACTOS; i++) {
+		for (int i=indice; i<MAX_CONTACTOS-1; i++) {
 			contactos[i]=contactos[i+1];
 			contactos[i+1]=null;
 		}
