@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Contacto {
 
 	private static final String ER_TELEFONO="^[6|9]\\d{8}";
-	private static final String ER_CORREO="^([\\w])+([\\.\\w]*)@([A-Za-z0-9]+)(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,5})";
+	private static final String ER_CORREO="^([\\w])+([\\.\\w]*)@([A-Za-z]+)(\\.[A-Za-z]+)*(\\.[A-Za-z]{1,5})";
 	private String nombre;
 	private String telefono;
 	private String correo;
@@ -22,8 +22,8 @@ public class Contacto {
 	}
 	
 	private void setNombre(String nombre) {
-		if (nombre==null || nombre=="") {
-			throw new IllegalArgumentException ("El nombre no puede estar vacÌo.");
+		if (nombre==null || nombre.trim().equals("")) {
+			throw new IllegalArgumentException ("El nombre de un contacto no puede ser nulo o vac√≠o.");
 		} else 
 			this.nombre=nombre;
 	}
@@ -31,25 +31,35 @@ public class Contacto {
 		return telefono;
 	}
 	public void setTelefono(String telefono) {
+		
+		if (telefono==null || telefono.trim().equals("")) {
+			throw new IllegalArgumentException ("El tel√©fono de un contacto no puede ser nulo o vac√≠o.");
+		}
+		
 		Pattern p=Pattern.compile(ER_TELEFONO);
 		Matcher m=p.matcher(telefono);
 		
-		if (!m.matches() || telefono==null || telefono=="") {
-			throw new IllegalArgumentException ("El n˙mero no es v·lido.");
-		} else
+		if (!m.matches()) {
+			throw new IllegalArgumentException ("El tel√©fono no tiene un formato v√°lido.");
+		} else {
 			this.telefono=telefono;
+		}
 	}
 	public String getCorreo() {
 		return correo;
 	}
 	public void setCorreo(String correo) {
+		
+		if (correo==null || correo.trim().equals("")) {
+			throw new IllegalArgumentException ("El correo de un contacto no puede ser nulo o vac√≠o.");
+		}
 		Pattern p=Pattern.compile(ER_CORREO);
 		Matcher m=p.matcher(correo);
-		
-		if (m.matches()) {
-			this.correo=correo;
+				
+		if (!m.matches()) {
+			throw new IllegalArgumentException ("El correo no tiene un formato v√°lido.");
 		} else
-			throw new IllegalArgumentException ("El correo no es v·lido.");
+			this.correo=correo;
 	}
 
 	public String toString() {
@@ -57,12 +67,12 @@ public class Contacto {
 	}
 	
 	public String getIniciales() {
-		String iniciales=""+nombre.charAt(0);
-		for (int i=0; i<nombre.length(); i++) {
-			if (nombre.charAt(i)==' ') {
-				iniciales+=nombre.charAt(i+1);
-			}
-		}
+		String[] partes = nombre.split("\\s+");
+		String iniciales="";
+		
+		for (int i=0; i<partes.length;i++)
+			iniciales+=partes[i].toUpperCase().charAt(0);
+		
 		return iniciales;
 	}
 
@@ -86,7 +96,7 @@ public class Contacto {
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
-		} else if (!nombre.equals(other.nombre))
+		} else if (!nombre.equalsIgnoreCase(other.nombre))
 			return false;
 		return true;
 	}

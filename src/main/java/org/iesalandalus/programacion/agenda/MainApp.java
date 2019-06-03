@@ -4,8 +4,8 @@ import javax.naming.OperationNotSupportedException;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 public class MainApp {
-	private static final String ERROR="La operaciÛn no ha podido realizarse. ";
-	private static final String EXITO="La operacion se ha realizado con Èxito. ";
+	private static final String ERROR="La operaci√≥n no ha podido realizarse. ";
+	private static final String EXITO="La operaci√≥n se ha realizado con √©xito. ";
 	private static Agenda miAgenda=new Agenda();
 	
 	public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class MainApp {
 	
 	private static void mostrarMenu() {
 		System.out.println("Opciones:");
-		System.out.println("1.AÒadir contacto.");
+		System.out.println("1.A√±adir contacto.");
 		System.out.println("2.Buscar contacto.");
 		System.out.println("3.Borrar contacto.");
 		System.out.println("4.Listar contactos.");
@@ -35,7 +35,7 @@ public class MainApp {
 	private static int elegirOpcion() {
 		int opcion;
 		do {
-			System.out.println("Selecciona la opciÛn que desees realizar:");
+			System.out.println("Selecciona la opci√≥n que desees realizar:");
 			opcion=Entrada.entero();		
 		} while (opcion<0 && opcion>4);
 			return opcion;
@@ -63,7 +63,7 @@ public class MainApp {
 	private static void anadirContacto() {
 		System.out.print("Nombre: ");
 		String nombre=Entrada.cadena();
-		System.out.print("TelÈfono: ");
+		System.out.print("Tel√©fono: ");
 		String telefono=Entrada.cadena();
 		System.out.print("Correo: ");
 		String correo=Entrada.cadena();
@@ -105,7 +105,7 @@ public class MainApp {
 	
 	private static void listarAgenda() {
 		if (miAgenda.numContactos==0)
-			System.out.println(ERROR+"La agenda est· vacÌa.");
+			System.out.println(ERROR+"La agenda est√° vac√≠a.");
 		else		
 			for (int i=0; i<miAgenda.numContactos; i++) {
 				System.out.println(miAgenda.contactos[i].toString());

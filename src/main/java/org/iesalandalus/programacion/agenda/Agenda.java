@@ -33,16 +33,16 @@ public class Agenda {
 	private int buscarPrimerIndiceComprobandoExistencia(Contacto contacto) throws OperationNotSupportedException {;
 		for (int i=0;i<contactos.length;i++) {
 			if (contactos[i]==contacto) {
-				throw new OperationNotSupportedException ("El contacto "+contactos[i].toString()+" ya existe.");
+				throw new OperationNotSupportedException ("Ya existe un contacto con ese nombre.");
 			}
 			if (contactos[i]==null) {
 				return i;
 			}
 		}
-		throw new OperationNotSupportedException ("La agenda está completa.");
+		throw new OperationNotSupportedException ("La agenda estÃ¡ completa.");
 	}
 	
-	private boolean indiceNoSuperaTamaño(int indice) {
+	private boolean indiceNoSuperaTamano(int indice) {
 		if (numContactos>MAX_CONTACTOS) {
 			return false;
 		}
@@ -56,8 +56,11 @@ public class Agenda {
 	}
 	
 	private int buscarIndiceCliente(String nombre) {
+		String telefonoValido="999999999";
+		String correoValido="a1@b.c";
+		Contacto contactoBuscado=new Contacto (nombre, telefonoValido, correoValido);
 		for (int i=0; i<numContactos;i++) {
-			if (contactos[i].getNombre().equals(nombre)) {
+			if (contactos[i].equals(contactoBuscado)) {
 				return i;
 			}
 		}
@@ -66,7 +69,7 @@ public class Agenda {
 	
 	public void borrar(String nombre) throws OperationNotSupportedException {
 		if (buscarIndiceCliente(nombre)==-1)
-			throw new OperationNotSupportedException ("No existe dicho usuario");
+			throw new OperationNotSupportedException ("El contacto a borrar no existe.");
 		else 
 			desplazarUnaPosicionHaciaLaIzquierda(buscarIndiceCliente(nombre));
 			numContactos-=1;
